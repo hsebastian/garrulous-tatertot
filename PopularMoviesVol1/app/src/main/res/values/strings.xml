@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Popular Movies Vol 1</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="pref_sortby_key">sortby</string>
+    <string name="pref_sortby_title">Sort Order</string>
+    <string name="pref_sortby_default">popularity</string>
+    <string name="pref_sortby_label_popularity">Popularity</string>
+    <string name="pref_sortby_label_rating">Highest rated</string>
+    <string name="pref_sortby_value_popularity">popularity</string>
+    <string name="pref_sortby_value_rating">rating</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_movie_detail">MovieDetailActivity</string>
+
+</resources>
