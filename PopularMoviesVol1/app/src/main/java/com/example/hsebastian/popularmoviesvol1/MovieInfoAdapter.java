@@ -1,5 +1,6 @@
 package com.example.hsebastian.popularmoviesvol1;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.Image;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.List;
+
 
 /**
  * Created by hsebastian on 10/11/15.
@@ -37,8 +39,17 @@ public class MovieInfoAdapter extends ArrayAdapter<HashMap<String, String>> {
         this.mResource = resource;
         this.mImageViewResourceId = ImageViewResourceId;
         this.mMovieInfos = objects;
+        Log.d(
+            LOG_TAG,
+            new StringBuilder()
+                .append("mContext=" + this.mContext.toString() + " ")
+                .append("mResource=" + String.valueOf(this.mResource) + " ")
+                .append("mImageViewResourceId=" + String.valueOf(this.mImageViewResourceId) + " ")
+                .append("mMovieInfos=" + String.valueOf(this.mMovieInfos.size()) + " ")
+                .toString());
     }
 
+    @Override
     public HashMap<String, String> getItem(int position) {
         HashMap<String, String> movieInfo = mMovieInfos.get(position);
         Log.d(
@@ -51,18 +62,26 @@ public class MovieInfoAdapter extends ArrayAdapter<HashMap<String, String>> {
         return movieInfo;
     }
 
+    @Override
     public void add(HashMap<String, String> object) {
         mMovieInfos.add(object);
+        Log.d(LOG_TAG, "added");
     }
 
+    @Override
     public void clear() {
         mMovieInfos.clear();
+        Log.d(LOG_TAG, "cleared");
     }
 
+    @Override
     public int getCount() {
-        return mMovieInfos.size();
+        int itemCount = mMovieInfos.size();
+        Log.d(LOG_TAG, "itemCount=" + itemCount);
+        return itemCount;
     }
 
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         HashMap<String, String> movieInfo = getItem(position);

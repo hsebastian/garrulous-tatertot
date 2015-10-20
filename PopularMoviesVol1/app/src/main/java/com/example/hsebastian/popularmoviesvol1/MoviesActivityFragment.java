@@ -27,6 +27,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -35,7 +36,7 @@ import java.util.HashMap;
 public class MoviesActivityFragment extends Fragment {
 
     private final String LOG_TAG = MoviesActivityFragment.class.getSimpleName();
-    private MovieInfoAdapter mMovieAdapter;
+    private MovieAdapter mMovieAdapter;
 
     public MoviesActivityFragment() {
     }
@@ -43,57 +44,54 @@ public class MoviesActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Log.d(LOG_TAG, "onCreateView");
         View rootView = inflater.inflate(
             R.layout.fragment_movies, container, false);
 
-        mMovieAdapter = new MovieInfoAdapter(
-            getActivity(),
-            R.layout.list_item_movies,
-            R.id.list_item_movies_imageview,
-            new ArrayList<HashMap<String, String>>());
+//        mMovieAdapter = new MovieInfoAdapter(
+//            getActivity(),
+//            R.layout.list_item_movies,
+//            R.id.list_item_movies_imageview,
+//            new ArrayList<HashMap<String, String>>());
 
-        GridView gridview = (GridView) rootView.findViewById(R.id.grid_view);
-        gridview.setAdapter(mMovieAdapter);
-//        gridview.setOnItemClickListener(
-//            new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(
-//                        AdapterView<?> adapterView, View view,
-//                        int position, long l) {
-//                    HashMap<String, String> movieInfo = mMovieAdapter.getItem(
-//                        position);
-//                    Log.i(
-//                        LOG_TAG,
-//                        new StringBuilder()
-//                            .append("position=" + position + " ")
-//                            .append("originalTitle='" +
-//                                movieInfo.get("originalTitle") + "' ")
-//                            .append("status=selected")
-//                            .append("intent=" +
-//                                MovieDetailActivity.class.toString())
-//                            .toString());
-//                    ParcelableMovieInfo parcelableMovieInfo =
-//                        new ParcelableMovieInfo(movieInfo);
-//                    Intent intent = new Intent(
-//                        getActivity(), MovieDetailActivity.class);
-//                    intent.putExtra("UserTag", parcelableMovieInfo);
-//                    startActivity(intent);
-//                }
-//            }
-//        );
+        mMovieAdapter = new MovieAdapter(
+            getActivity(), new ArrayList<HashMap<String, String>>());
+        GridView gridView = (GridView) rootView.findViewById(R.id.grid_view);
+        gridView.setAdapter(mMovieAdapter);
+        gridView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(
+                        AdapterView<?> adapterView, View view,
+                        int position, long l) {
+                    HashMap<String, String> movieInfo = mMovieAdapter.getItem(
+                        position);
+                    Log.i(
+                        LOG_TAG,
+                        new StringBuilder()
+                            .append("position=" + position + " ")
+                            .append("originalTitle='" +
+                                movieInfo.get("originalTitle") + "' ")
+                            .append("status=selected")
+                            .append("intent=" +
+                                MovieDetailActivity.class.toString())
+                            .toString());
+                    ParcelableMovieInfo parcelableMovieInfo =
+                        new ParcelableMovieInfo(movieInfo);
+                    Intent intent = new Intent(
+                        getActivity(), MovieDetailActivity.class);
+                    intent.putExtra("UserTag", parcelableMovieInfo);
+                    startActivity(intent);
+                }
+            }
+        );
         return rootView;
 
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        updateMovies();
-    }
-
-    @Override
     public void onResume() {
+        Log.d(LOG_TAG, "onResume");
         super.onResume();
         updateMovies();
     }
@@ -104,7 +102,7 @@ public class MoviesActivityFragment extends Fragment {
         String sortByPref = sharedPref.getString(
             getString(R.string.pref_sortby_key),
             getString(R.string.pref_sortby_default));
-        Log.i(LOG_TAG, "sortByPref=" + sortByPref);
+        Log.d(LOG_TAG, "sortByPref=" + sortByPref);
         new FetchMoviesTask().execute(sortByPref);
     }
 
@@ -127,7 +125,7 @@ public class MoviesActivityFragment extends Fragment {
             uriBuilder.appendPath("t");
             uriBuilder.appendPath("p");
             uriBuilder.appendPath("w185");
-            uriBuilder.appendPath(posterPath);
+            uriBuilder.appendPath(posterPath.replace("/", ""));
 
             String posterUrl = uriBuilder.build().toString();
             Log.i(LOG_TAG, "posterUrl=" + posterUrl);
@@ -220,7 +218,7 @@ public class MoviesActivityFragment extends Fragment {
                 uriBuilder.appendPath("movie");
                 uriBuilder.appendQueryParameter("sort_by", sortBy);
                 uriBuilder.appendQueryParameter(
-                    "api_key", String.valueOf(R.string.tmdb_api_key));
+                    "api_key", getResources().getString(R.string.tmdb_api_key));
 
                 // Create the request to themoviedb, and open the connection
                 urlString = uriBuilder.build().toString();
@@ -296,6 +294,9 @@ public class MoviesActivityFragment extends Fragment {
             if (movieInfos != null) {
                 mMovieAdapter.clear();
                 for (HashMap<String, String> movieInfo : movieInfos) {
+                    Log.d(
+                        LOG_TAG,
+                        "adding to mMovieAdapter " + movieInfo.get("originalTitle"));
                     mMovieAdapter.add(movieInfo);
                 }
             }
