@@ -21,6 +21,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+
     }
 
     @Override

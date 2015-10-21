@@ -35,18 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/movie_poster_image_view"
-        android:text=
-            "Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis
-             Plot synopsis Plot synopsis Plot synopsis Plot synopsis"/>
+        android:text="Plot synopsis"/>
 
     <ImageView
         android:id="@+id/movie_poster_image_view"

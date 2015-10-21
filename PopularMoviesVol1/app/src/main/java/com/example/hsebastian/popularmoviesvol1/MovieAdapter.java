@@ -20,13 +20,14 @@ public class MovieAdapter extends ArrayAdapter<HashMap<String, String>> {
 
     private static final String LOG_TAG = MovieAdapter.class.getSimpleName();
 
-    public MovieAdapter (Activity content, List<HashMap<String, String>> movieInfos) {
+    public MovieAdapter (
+            Activity content, List<HashMap<String, String>> movieInfos) {
         super(content, 0, movieInfos);
         Log.d(
             LOG_TAG,
             new StringBuilder()
                 .append("Activity=" + content.toString() + " ")
-                .append("mMovieInfos=" + String.valueOf(movieInfos.size()) + " ")
+                .append("mMovieInfos=" + String.valueOf(movieInfos.size()))
                 .toString());
     }
 
@@ -37,7 +38,6 @@ public class MovieAdapter extends ArrayAdapter<HashMap<String, String>> {
             .inflate(R.layout.list_item_movies, parent, false);
         ImageView imageView = (ImageView) rootView.findViewById(
             R.id.list_item_movies_imageview);
-//        imageView.setImageResource(mThumbIds[position]);
         String posterUrl = movieInfo.get("posterUrl");
         Log.d(
             LOG_TAG,
@@ -46,23 +46,6 @@ public class MovieAdapter extends ArrayAdapter<HashMap<String, String>> {
                 .toString());
         Picasso picasso = Picasso.with(imageView.getContext());
         picasso.load(posterUrl).into(imageView);
-        picasso.setLoggingEnabled(true);
-        picasso.setIndicatorsEnabled(true);
         return rootView;
     }
-
-    // references to our images
-    private Integer[] mThumbIds = {
-        R.drawable.sample_2, R.drawable.sample_3,
-        R.drawable.sample_4, R.drawable.sample_5,
-        R.drawable.sample_6, R.drawable.sample_7,
-        R.drawable.sample_0, R.drawable.sample_1,
-        R.drawable.sample_2, R.drawable.sample_3,
-        R.drawable.sample_4, R.drawable.sample_5,
-        R.drawable.sample_6, R.drawable.sample_7,
-        R.drawable.sample_0, R.drawable.sample_1,
-        R.drawable.sample_2, R.drawable.sample_3,
-        R.drawable.sample_4, R.drawable.sample_5,
-        R.drawable.sample_6, R.drawable.sample_7
-    };
 }

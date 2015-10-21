@@ -33,6 +33,9 @@ class ParcelableMovieInfo implements Parcelable {
         }
     }
 
+    public HashMap<String, String> getMovieInfo() {
+        return mMovieInfo;
+    }
 
     @Override
     public void writeToParcel(Parcel out, int flags) {
