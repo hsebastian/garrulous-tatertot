@@ -12,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,7 +25,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -47,12 +44,6 @@ public class MoviesActivityFragment extends Fragment {
         Log.d(LOG_TAG, "onCreateView");
         View rootView = inflater.inflate(
             R.layout.fragment_movies, container, false);
-
-//        mMovieAdapter = new MovieInfoAdapter(
-//            getActivity(),
-//            R.layout.list_item_movies,
-//            R.id.list_item_movies_imageview,
-//            new ArrayList<HashMap<String, String>>());
 
         mMovieAdapter = new MovieAdapter(
             getActivity(), new ArrayList<HashMap<String, String>>());
@@ -106,7 +97,7 @@ public class MoviesActivityFragment extends Fragment {
         new FetchMoviesTask().execute(sortByPref);
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+
 
     public class FetchMoviesTask
             extends AsyncTask<String, Void, HashMap<String, String>[]> {
