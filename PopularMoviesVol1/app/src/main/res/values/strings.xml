@@ -1,16 +1,26 @@
 <resources>
-    <string name="app_name">Popular Movies Vol 1</string>
+    <string name="app_name">Popular Movies Vol 2</string>
+
     <string name="action_settings">Settings</string>
 
     <string name="pref_sortby_key">sortby</string>
     <string name="pref_sortby_title">Sort Order</string>
+
     <string name="pref_sortby_default">popularity</string>
+
     <string name="pref_sortby_label_popularity">Popularity</string>
     <string name="pref_sortby_label_rating">Highest rated</string>
+    <string name="pref_sortby_label_favorites">My favorites</string>
+
     <string name="pref_sortby_value_popularity">popularity</string>
     <string name="pref_sortby_value_rating">rating</string>
+    <string name="pref_sortby_value_favorites">favorites</string>
 
-<!-- TODO: Remove or change this placeholder text -->
     <string name="title_activity_movie_detail">Movie Details</string>
+
+    <string name="button_label_already_favorite">Unmark from favorites</string>
+    <string name="button_label_not_favorite">Mark as favorite</string>
+
+    <!--<string name="button_value_already_favorite">toggle_favorite</string>-->
 
 </resources>
