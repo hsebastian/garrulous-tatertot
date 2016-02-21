@@ -1,0 +1,11 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_item_trailer_name_text_view"
+        android:text="My Trailer Title"
+        android:textSize="@dimen/abc_text_size_headline_material"/>
+</LinearLayout>

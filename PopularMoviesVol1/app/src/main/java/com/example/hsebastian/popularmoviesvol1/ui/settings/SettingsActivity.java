@@ -1,4 +1,4 @@
-package com.example.hsebastian.popularmoviesvol1;
+package com.example.hsebastian.popularmoviesvol1.ui.settings;
 
 import android.app.Activity;
 import android.os.Bundle;

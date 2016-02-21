@@ -1,4 +1,4 @@
-package com.example.hsebastian.popularmoviesvol1;
+package com.example.hsebastian.popularmoviesvol1.ui.movies;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.hsebastian.popularmoviesvol1.R;
+import com.example.hsebastian.popularmoviesvol1.ui.settings.SettingsActivity;
 
 public class MoviesActivity extends AppCompatActivity {
 

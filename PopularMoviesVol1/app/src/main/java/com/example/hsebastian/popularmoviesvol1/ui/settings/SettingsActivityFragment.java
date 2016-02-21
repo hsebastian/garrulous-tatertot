@@ -1,8 +1,9 @@
-package com.example.hsebastian.popularmoviesvol1;
+package com.example.hsebastian.popularmoviesvol1.ui.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
+import com.example.hsebastian.popularmoviesvol1.R;
 
 
 public class SettingsActivityFragment extends PreferenceFragment {
