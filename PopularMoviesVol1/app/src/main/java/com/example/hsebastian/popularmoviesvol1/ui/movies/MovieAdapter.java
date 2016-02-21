@@ -1,4 +1,4 @@
-package com.example.hsebastian.popularmoviesvol1;
+package com.example.hsebastian.popularmoviesvol1.ui.movies;
 
 import android.app.Activity;
 import android.util.Log;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
+import com.example.hsebastian.popularmoviesvol1.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;

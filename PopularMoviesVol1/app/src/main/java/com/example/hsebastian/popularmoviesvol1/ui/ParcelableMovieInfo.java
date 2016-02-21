@@ -1,4 +1,4 @@
-package com.example.hsebastian.popularmoviesvol1;
+package com.example.hsebastian.popularmoviesvol1.ui;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -10,7 +10,7 @@ import java.util.Map;
  * Created by hsebastian on 10/13/15.
  */
 // access modifiers, accessors and regular constructors ommited for brevity
-class ParcelableMovieInfo implements Parcelable {
+public class ParcelableMovieInfo implements Parcelable {
 
     private final String LOG_TAG = ParcelableMovieInfo.class.getSimpleName();
     private HashMap<String, String> mMovieInfo;
@@ -55,17 +55,17 @@ class ParcelableMovieInfo implements Parcelable {
     public static final Parcelable.Creator<ParcelableMovieInfo> CREATOR =
         new Parcelable.Creator<ParcelableMovieInfo>() {
 
-        @Override
-        public ParcelableMovieInfo createFromParcel(Parcel source) {
-            // Using the private parcelable constructor
-            return new ParcelableMovieInfo(source);
-        }
+            @Override
+            public ParcelableMovieInfo createFromParcel(Parcel source) {
+                // Using the private parcelable constructor
+                return new ParcelableMovieInfo(source);
+            }
 
-        @Override
-        public ParcelableMovieInfo[] newArray(int size) {
-            return new ParcelableMovieInfo[size];
-        }
-    };
+            @Override
+            public ParcelableMovieInfo[] newArray(int size) {
+                return new ParcelableMovieInfo[size];
+            }
+        };
 }
 
 

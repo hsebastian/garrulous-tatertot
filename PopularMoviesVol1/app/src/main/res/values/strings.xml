@@ -18,4 +18,9 @@
 
     <string name="title_activity_movie_detail">Movie Details</string>
 
+    <string name="button_label_already_favorite">Unmark from favorites</string>
+    <string name="button_label_not_favorite">Mark as favorite</string>
+
+    <!--<string name="button_value_already_favorite">toggle_favorite</string>-->
+
 </resources>
