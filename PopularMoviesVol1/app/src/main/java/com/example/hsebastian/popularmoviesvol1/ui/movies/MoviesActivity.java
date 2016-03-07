@@ -4,20 +4,47 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hsebastian.popularmoviesvol1.R;
+import com.example.hsebastian.popularmoviesvol1.ui.ParcelableMovieInfo;
+import com.example.hsebastian.popularmoviesvol1.ui.details.MovieDetailFragment;
 import com.example.hsebastian.popularmoviesvol1.ui.settings.SettingsActivity;
 
 public class MoviesActivity extends AppCompatActivity {
 
+    private final String LOG_TAG = MoviesFragment.class.getSimpleName();
+    private static final String MOVIEDETAILFRAGMENT_TAG = "DFTAG";
+    private boolean mTwoPane;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies);
+
+        setContentView(R.layout.activity_movie_list);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle(getTitle());
+
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            Log.d(LOG_TAG, "Running on tablet");
+            mTwoPane = true;
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction().replace(
+                    R.id.movie_detail_container, new MovieDetailFragment()).commit();
+            }
+        } else {
+            mTwoPane = false;
+        }
+
+    }
+
+    public boolean isTablet() {
+        Log.d(LOG_TAG, "tablet=" + String.valueOf(mTwoPane));
+        return mTwoPane;
     }
 
     @Override
@@ -42,5 +69,15 @@ public class MoviesActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void replaceFragment(ParcelableMovieInfo parcelableMovieInfo) {
+        Log.i(LOG_TAG, "replaceFragment");
+        Bundle args = new Bundle();
+        args.putParcelable(ParcelableMovieInfo.BUNDLE_TAG, parcelableMovieInfo);
+        MovieDetailFragment detailFragment = new MovieDetailFragment();
+        detailFragment.setArguments(args);
+        getSupportFragmentManager().beginTransaction().replace(
+            R.id.movie_detail_container, detailFragment).commit();
     }
 }

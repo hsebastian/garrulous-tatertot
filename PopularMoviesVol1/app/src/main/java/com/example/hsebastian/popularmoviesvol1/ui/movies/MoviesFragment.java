@@ -26,12 +26,12 @@ import java.util.HashMap;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MoviesActivityFragment extends Fragment {
+public class MoviesFragment extends Fragment {
 
-    private final String LOG_TAG = MoviesActivityFragment.class.getSimpleName();
+    private final String LOG_TAG = MoviesFragment.class.getSimpleName();
     private MovieAdapter mMovieAdapter;
 
-    public MoviesActivityFragment() {
+    public MoviesFragment() {
     }
 
     @Override
@@ -39,7 +39,7 @@ public class MoviesActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         Log.d(LOG_TAG, "onCreateView");
         View rootView = inflater.inflate(
-            R.layout.fragment_movies, container, false);
+            R.layout.fragment_movie_list, container, false);
 
         mMovieAdapter = new MovieAdapter(
             getActivity(), new ArrayList<HashMap<String, String>>());
@@ -60,15 +60,21 @@ public class MoviesActivityFragment extends Fragment {
                             .append("originalTitle='" +
                                 movieInfo.get("originalTitle") + "' ")
                             .append("status=selected")
-                            .append("intent=" +
-                                MovieDetailActivity.class.toString())
                             .toString());
                     ParcelableMovieInfo parcelableMovieInfo =
                         new ParcelableMovieInfo(movieInfo);
-                    Intent intent = new Intent(
-                        getActivity(), MovieDetailActivity.class);
-                    intent.putExtra("UserTag", parcelableMovieInfo);
-                    startActivity(intent);
+
+                    MoviesActivity thisActivity = (MoviesActivity) getActivity();
+                    boolean isTablet = thisActivity.isTablet();
+                    if (isTablet) {
+                        thisActivity.replaceFragment(parcelableMovieInfo);
+                    } else {
+                        Intent intent = new Intent(
+                            getActivity(), MovieDetailActivity.class);
+                        intent.putExtra(
+                            ParcelableMovieInfo.BUNDLE_TAG, parcelableMovieInfo);
+                        startActivity(intent);
+                    }
                 }
             }
         );

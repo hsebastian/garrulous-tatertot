@@ -14,6 +14,7 @@ public class ParcelableMovieInfo implements Parcelable {
 
     private final String LOG_TAG = ParcelableMovieInfo.class.getSimpleName();
     private HashMap<String, String> mMovieInfo;
+    public static String BUNDLE_TAG = "movieInfo";
 
     public ParcelableMovieInfo(HashMap movieInfo){
         mMovieInfo = movieInfo;

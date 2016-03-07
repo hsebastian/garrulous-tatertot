@@ -19,6 +19,7 @@ package com.example.hsebastian.popularmoviesvol1.data;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.test.AndroidTestCase;
 
 import java.util.HashSet;
@@ -63,8 +64,9 @@ public class TestDb extends AndroidTestCase {
         mContext.deleteDatabase(MovieDbHelper.DATABASE_NAME);
 
         // WHEN instantiating the DB helper
+        SQLiteCursorFactory sqLiteCursorFactory = new SQLiteCursorFactory(true);
         SQLiteDatabase db = new MovieDbHelper(
-            this.mContext).getWritableDatabase();
+            this.mContext, sqLiteCursorFactory).getWritableDatabase();
 
         // THEN the DB is open
         assertEquals(true, db.isOpen());
@@ -188,7 +190,8 @@ public class TestDb extends AndroidTestCase {
         // First step: Get reference to writable database
         // If there's an error in those massive SQL table creation Strings,
         // errors will be thrown here when you try to get a writable database.
-        MovieDbHelper dbHelper = new MovieDbHelper(mContext);
+        SQLiteCursorFactory sqLiteCursorFactory = new SQLiteCursorFactory(true);
+        MovieDbHelper dbHelper = new MovieDbHelper(mContext, sqLiteCursorFactory);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues trailerValues = TestUtilities.createTrailerValues(movieRowId);
@@ -235,7 +238,8 @@ public class TestDb extends AndroidTestCase {
         // First step: Get reference to writable database
         // If there's an error in those massive SQL table creation Strings,
         // errors will be thrown here when you try to get a writable database.
-        MovieDbHelper dbHelper = new MovieDbHelper(mContext);
+        SQLiteCursorFactory sqLiteCursorFactory = new SQLiteCursorFactory(true);
+        MovieDbHelper dbHelper = new MovieDbHelper(mContext, sqLiteCursorFactory);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         ContentValues reviewValues = TestUtilities.createReviewValues(movieRowId);
@@ -277,7 +281,8 @@ public class TestDb extends AndroidTestCase {
         // First step: Get reference to writable database
         // If there's an error in those massive SQL table creation Strings,
         // errors will be thrown here when you try to get a writable database.
-        MovieDbHelper dbHelper = new MovieDbHelper(mContext);
+        SQLiteCursorFactory sqLiteCursorFactory = new SQLiteCursorFactory(true);
+        MovieDbHelper dbHelper = new MovieDbHelper(mContext, sqLiteCursorFactory);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Second Step: Create ContentValues of what you want to insert

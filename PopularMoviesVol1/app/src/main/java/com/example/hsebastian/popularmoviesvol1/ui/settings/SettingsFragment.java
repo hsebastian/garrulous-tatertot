@@ -6,7 +6,7 @@ import android.preference.PreferenceFragment;
 import com.example.hsebastian.popularmoviesvol1.R;
 
 
-public class SettingsActivityFragment extends PreferenceFragment {
+public class SettingsFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -302,41 +302,6 @@ public class MovieProvider extends ContentProvider {
         return rowsUpdated;
     }
 
-//    public boolean deleteMovie(String movieId) {
-//        final SQLiteDatabase db = this.mMovieDbHelper.getWritableDatabase();
-//        db.beginTransaction();
-//        boolean movieDeleted = false;
-//        try {
-//
-//            this.delete(
-//                MovieContract.ReviewEntry.CONTENT_URI,
-//                db,
-//                MovieContract.ReviewEntry.COLUMN_MOVIE_KEY + " = ?",
-//                new String[]{movieId});
-//
-//            this.delete(
-//                MovieContract.TrailerEntry.CONTENT_URI,
-//                db,
-//                MovieContract.TrailerEntry.COLUMN_MOVIE_KEY + " = ?",
-//                new String[]{movieId});
-//
-//            this.delete(
-//                MovieContract.MovieEntry.CONTENT_URI,
-//                db,
-//                MovieContract.MovieEntry._ID + " = ?",
-//                new String[]{movieId});
-//
-//            db.setTransactionSuccessful();
-//            movieDeleted = true;
-//            Log.d(
-//                LOG_TAG,
-//                "deleteMovie" + " ".concat("movieId=" + movieId + " "));
-//        } finally {
-//            db.endTransaction();
-//        }
-//        return movieDeleted;
-//    }
-
     @Override
     public int delete(@NonNull Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = this.mMovieDbHelper.getWritableDatabase();
@@ -375,43 +340,6 @@ public class MovieProvider extends ContentProvider {
         return rowsDeleted;
     }
 
-//    public int delete(@NonNull Uri uri, SQLiteDatabase db, String selection, String[] selectionArgs) {
-////        final SQLiteDatabase db = this.mMovieDbHelper.getWritableDatabase();
-//        final int match = sUriMatcher.match(uri);
-//        int rowsDeleted;
-//        // this makes delete all rows return the number of rows deleted
-//        if ( null == selection ) selection = "1";
-//        switch (match) {
-//            case MOVIES:
-//                rowsDeleted = db.delete(
-//                    MovieContract.MovieEntry.TABLE_NAME, selection, selectionArgs);
-//                break;
-//            case MOVIE_TRAILERS:
-//                rowsDeleted = db.delete(
-//                    MovieContract.TrailerEntry.TABLE_NAME, selection, selectionArgs);
-//                break;
-//            case MOVIE_REVIEWS:
-//                rowsDeleted = db.delete(
-//                    MovieContract.ReviewEntry.TABLE_NAME, selection, selectionArgs);
-//                break;
-//            default:
-//                throw new UnsupportedOperationException("Unknown uri: " + uri);
-//        }
-//        // Because a null deletes all rows
-//        if (rowsDeleted != 0) {
-//            getContext().getContentResolver().notifyChange(uri, null);
-//        }
-//        Log.d(
-//            LOG_TAG,
-//            "delete" + " "
-//                .concat("uri=" + uri.toString() + " ")
-//                .concat("selection=" + selection + " ")
-//                .concat("selectionArgs=" + Arrays.toString(selectionArgs) + " ")
-//                .concat("match=" + String.valueOf(match) + " ")
-//                .concat("rowsDeleted=" + String.valueOf(rowsDeleted) + " "));
-//        return rowsDeleted;
-//    }
-
     // You do not need to call this method. This is a method specifically to assist the testing
     // framework in running smoothly. You can read more at:
     // http://developer.android.com/reference/android/content/ContentProvider.html#shutdown()
@@ -420,33 +348,5 @@ public class MovieProvider extends ContentProvider {
     public void shutdown() {
         this.mMovieDbHelper.close();
         super.shutdown();
-    }
-
-    /**
-     * Implement the cursor factory in order to log the queries before returning
-     * the cursor
-     *
-     * @author Vincent @ MarvinLabs
-     *
-     * http://stackoverflow.com/questions/5966584/logging-sql-queries-in-android
-     *
-     * TODO: This does not work
-     */
-    private class SQLiteCursorFactory implements SQLiteDatabase.CursorFactory {
-
-        private boolean debugQueries = false;
-
-        public SQLiteCursorFactory(boolean debugQueries) {
-            this.debugQueries = debugQueries;
-        }
-
-        @Override
-        public Cursor newCursor(SQLiteDatabase db, SQLiteCursorDriver masterQuery,
-                                String editTable, SQLiteQuery query) {
-            if (debugQueries) {
-                Log.d("SQL", query.toString());
-            }
-            return new SQLiteCursor(masterQuery, editTable, query);
-        }
     }
 }
