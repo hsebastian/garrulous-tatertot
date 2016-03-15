@@ -9,6 +9,7 @@
     tools:context=".MoviesActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -22,6 +23,15 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_movies"/>
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fragment"
+        android:name="com.example.hsebastian.popularmoviesvol1.ui.movies.MoviesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:layout="@layout/fragment_movie_list"/>
 
 </android.support.design.widget.CoordinatorLayout>

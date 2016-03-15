@@ -35,7 +35,7 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MovieDetailActivityFragment extends Fragment {
+public class MovieDetailFragment extends Fragment {
     /*
     Show details
         show movie details
@@ -55,7 +55,7 @@ public class MovieDetailActivityFragment extends Fragment {
             insert trailers and reviews by movie _ID
      */
 
-    private final String LOG_TAG = MovieDetailActivityFragment.class.getSimpleName();
+    private final String LOG_TAG = MovieDetailFragment.class.getSimpleName();
 
     private LinearLayout mTrailerLinearLayout;
     private LinearLayout mReviewLinearLayout;
@@ -79,21 +79,8 @@ public class MovieDetailActivityFragment extends Fragment {
             R.layout.fragment_movie_detail, container, false);
         ButterKnife.bind(this, rootView);
 
-        Intent intent = getActivity().getIntent();
-        if (intent != null && intent.hasExtra("UserTag")) {
-
-            Log.d(
-                LOG_TAG,
-                new StringBuilder()
-                    .append("onCreateView ")
-                    .append("intent=" + intent.toString() + " ")
-                    .append("action=getParcelable")
-                    .toString());
-
-            Bundle data = intent.getExtras();
-            ParcelableMovieInfo parcelableMovieInfo = data.getParcelable("UserTag");
-            HashMap<String, String> movieInfo = parcelableMovieInfo.getMovieInfo();
-
+        if (getMovieInfo() != null) {
+            HashMap<String, String> movieInfo = getMovieInfo();
             Log.i(
                 LOG_TAG,
                 new StringBuilder()
@@ -127,52 +114,50 @@ public class MovieDetailActivityFragment extends Fragment {
         super.onResume();
 
         HashMap<String, String> movieInfo = getMovieInfo();
-        String tmdbMovieId = movieInfo.get("movieId");
+        if (movieInfo != null) {
 
-        // query movie DB entry by movieId
-        Cursor movieCursor = getContext().getContentResolver().query(
-            MovieContract.MovieEntry.CONTENT_URI,
-            new String[]{MovieContract.MovieEntry._ID},
-            MovieContract.MovieEntry.COLUMN_TMDB_MOVIE_ID + " = ?",
-            new String[]{tmdbMovieId},
-            null);
-        mIsFavorite = movieCursor.moveToFirst();
+            String tmdbMovieId = movieInfo.get("movieId");
 
-        mTrailers = new ArrayList<>();
-        mReviews = new ArrayList<>();
+            // query movie DB entry by movieId
+            Cursor movieCursor = getContext().getContentResolver().query(
+                MovieContract.MovieEntry.CONTENT_URI,
+                new String[]{MovieContract.MovieEntry._ID},
+                MovieContract.MovieEntry.COLUMN_TMDB_MOVIE_ID + " = ?",
+                new String[]{tmdbMovieId},
+                null);
+            mIsFavorite = movieCursor.moveToFirst();
 
-        if (mIsFavorite) {
-            int movieIdIndex = movieCursor.getColumnIndex(
-                MovieContract.MovieEntry._ID);
-            String movieId = movieCursor.getString(movieIdIndex);
-            new GetTrailersOfflineTask().execute(movieId);
-            new GetReviewsOfflineTask().execute(movieId);
-            mIsFavorite = true;
-            mOfflineMovieId = movieId;
-        } else {
-            new GetTrailersOnlineTask().execute(tmdbMovieId);
-            new GetReviewsOnlineTask().execute(tmdbMovieId);
-            mIsFavorite = false;
+            mTrailers = new ArrayList<>();
+            mReviews = new ArrayList<>();
+
+            if (mIsFavorite) {
+                int movieIdIndex = movieCursor.getColumnIndex(
+                    MovieContract.MovieEntry._ID);
+                String movieId = movieCursor.getString(movieIdIndex);
+                new GetTrailersOfflineTask().execute(movieId);
+                new GetReviewsOfflineTask().execute(movieId);
+                mIsFavorite = true;
+                mOfflineMovieId = movieId;
+            } else {
+                new GetTrailersOnlineTask().execute(tmdbMovieId);
+                new GetReviewsOnlineTask().execute(tmdbMovieId);
+                mIsFavorite = false;
+            }
+            toggleFavoriteButton();
+            movieCursor.close();
         }
-        toggleFavoriteButton();
-        movieCursor.close();
     }
 
     private HashMap<String, String> getMovieInfo() {
-        Intent intent = getActivity().getIntent();
-        if (intent != null && intent.hasExtra("UserTag")) {
-            Log.d(
-                LOG_TAG,
-                new StringBuilder()
-                    .append("intent=" + intent.toString() + " ")
-                    .append("action=getMovieInfo")
-                    .toString());
-            Bundle data = intent.getExtras();
-            ParcelableMovieInfo parcelableMovieInfo = data.getParcelable("UserTag");
+        Bundle args = getArguments();
+        if (args != null) {
+            ParcelableMovieInfo parcelableMovieInfo = args.getParcelable(
+                ParcelableMovieInfo.BUNDLE_TAG);
             HashMap<String, String> movieInfo = parcelableMovieInfo.getMovieInfo();
             return movieInfo;
         } else {
             // TODO: how to handle this error?
+            Log.e(LOG_TAG, "Initialized without arguments");
             return null;
         }
     }
