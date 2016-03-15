@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import com.example.hsebastian.popularmoviesvol1.R;
+import com.example.hsebastian.popularmoviesvol1.ui.ParcelableMovieInfo;
 
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -23,7 +24,7 @@ public class MovieDetailActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = this.getIntent();
-        if (intent != null && intent.hasExtra("UserTag")) {
+        if (intent != null && intent.hasExtra(ParcelableMovieInfo.BUNDLE_TAG)) {
             Log.d(
                 LOG_TAG,
                 new StringBuilder()
