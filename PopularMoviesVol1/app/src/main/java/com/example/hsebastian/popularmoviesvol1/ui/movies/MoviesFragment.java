@@ -29,7 +29,7 @@ import java.util.HashMap;
 public class MoviesFragment extends Fragment {
 
     private final String LOG_TAG = MoviesFragment.class.getSimpleName();
-    private MovieAdapter mMovieAdapter;
+    private MoviesAdapter mMoviesAdapter;
 
     public MoviesFragment() {
     }
@@ -41,17 +41,17 @@ public class MoviesFragment extends Fragment {
         View rootView = inflater.inflate(
             R.layout.fragment_movie_list, container, false);
 
-        mMovieAdapter = new MovieAdapter(
+        mMoviesAdapter = new MoviesAdapter(
             getActivity(), new ArrayList<HashMap<String, String>>());
         GridView gridView = (GridView) rootView.findViewById(R.id.grid_view);
-        gridView.setAdapter(mMovieAdapter);
+        gridView.setAdapter(mMoviesAdapter);
         gridView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(
                         AdapterView<?> adapterView, View view,
                         int position, long l) {
-                    HashMap<String, String> movieInfo = mMovieAdapter.getItem(
+                    HashMap<String, String> movieInfo = mMoviesAdapter.getItem(
                         position);
                     Log.i(
                         LOG_TAG,
@@ -199,12 +199,12 @@ public class MoviesFragment extends Fragment {
         @Override
         protected void onPostExecute(HashMap<String, String>[] movieInfos) {
             if (movieInfos != null) {
-                mMovieAdapter.clear();
+                mMoviesAdapter.clear();
                 for (HashMap<String, String> movieInfo : movieInfos) {
                     Log.d(
                         LOG_TAG,
-                        "adding to mMovieAdapter " + movieInfo.get("originalTitle"));
-                    mMovieAdapter.add(movieInfo);
+                        "adding to mMoviesAdapter " + movieInfo.get("originalTitle"));
+                    mMoviesAdapter.add(movieInfo);
                 }
             }
         }
