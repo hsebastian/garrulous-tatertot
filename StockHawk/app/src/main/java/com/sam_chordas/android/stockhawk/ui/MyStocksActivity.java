@@ -75,7 +75,7 @@ public class MyStocksActivity
             if (isConnected){
                 startService(mServiceIntent);
             } else{
-                networkToast();
+                showNoInternetToast();
             }
         }
 
@@ -132,7 +132,7 @@ public class MyStocksActivity
                     });
                     addStockDialog.show();
                 } else {
-                    networkToast();
+                    showNoInternetToast();
                 }
             }
         });
@@ -169,11 +169,11 @@ public class MyStocksActivity
         getLoaderManager().restartLoader(CURSOR_LOADER_ID, null, this);
     }
 
-    public void networkToast(){
+    public void showNoInternetToast(){
         Toast.makeText(
             mContext,
             getString(R.string.network_toast),
-            Toast.LENGTH_SHORT).show();
+            Toast.LENGTH_LONG).show();
     }
 
     public void restoreActionBar() {
