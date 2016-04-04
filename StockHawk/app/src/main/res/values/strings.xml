@@ -14,6 +14,8 @@
 
     <!-- A11y -->
     <string name="a11y_add_stock_button">Add stock</string>
+    <string name="a11y_my_stocks_activity">Stock Hawk main screen</string>
+    <string name="a11y_stocks_list_view">List of stocks being tracked</string>
     <!--<string name="a11y_forecast_icon">Forecast icon: <xliff:g id="condition">%1$s</xliff:g></string>-->
     <!--<string name="a11y_high_temp">High: <xliff:g id="high">%1$s</xliff:g></string>-->
     <!--<string name="a11y_low_temp">Low: <xliff:g id="low">%1$s</xliff:g></string>-->

@@ -28,3 +28,7 @@ proguard/
 
 # IDE files
 *.idea/
+
+*TODO.md
+StockHawk-*
+
